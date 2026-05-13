@@ -4,3 +4,4 @@ xlrd
 numpy
 scikit-learn
 matplotlib
+tensorflow
