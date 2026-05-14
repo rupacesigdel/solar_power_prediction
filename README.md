@@ -90,7 +90,7 @@ To avoid the "recursive drift" often found in long-term AI forecasts (where pred
 
 ## 🤝 Acknowledgments
 *   This research was conducted as part of an independent study into **Renewable Energy Forecasting**.
-*   Data provided by [Insert Institution or Dataset Name here, e.g., National Renewable Energy Laboratory].
+*   Data provided by Nuwakot devighat Solar Power Plant 25MW .
 *   Special thanks to mentors and peers who provided feedback on the deep learning architectures used in this study.
 
 ## 📜 License & Copyright
@@ -102,7 +102,3 @@ This project is licensed under the **MIT License** - see the details below:
 *   **Attribution** is required: Any publication or distribution of this work must include a citation to this repository and the author.
 
 ---
-
-## 📝 Citation
-
-Sigdel,Rupesh. (2026). Solar Power Forecasting using ANN and LSTM Architectures. 
