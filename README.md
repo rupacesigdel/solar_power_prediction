@@ -83,8 +83,8 @@ To avoid the "recursive drift" often found in long-term AI forecasts (where pred
 
 ## 🛠 Author
 **[Rupesh Sigdel](https://github.com/rupacesigdel)**
-*Research Area: Deep Learning in Renewable Energy*
-*LinkedIn:* [rupesh-sigdel](https://www.linkedin.com/in/rupesh-sigdel-63252425b/) | *Email:* rupeshcgdl2060@gmail.com
+- *Research Area: Deep Learning in Renewable Energy*
+- *LinkedIn:* [rupesh-sigdel](https://www.linkedin.com/in/rupesh-sigdel-63252425b/) | *Email:* rupeshcgdl2060@gmail.com
 
 ---
 
