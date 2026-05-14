@@ -1,4 +1,4 @@
-# [Solar power Forecast](https://github.com/rupacesigdel/solar_power_prediction): A Comparative Study of ANN and LSTM Architectures
+# [Solar power Prediction](https://github.com/rupacesigdel/solar_power_prediction): A Comparative Study of ANN and LSTM Architectures
 
 ![Project Status](https://img.shields.io/badge/Status-Research_Complete-success)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
