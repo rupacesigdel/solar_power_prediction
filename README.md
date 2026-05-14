@@ -105,4 +105,4 @@ This project is licensed under the **MIT License** - see the details below:
 
 ## 📝 Citation
 
-Sigdel,Rupesh. (2026). Solar Power Forecasting udxrzsing ANN and LSTM Architectures. 
+Sigdel,Rupesh. (2026). Solar Power Forecasting using ANN and LSTM Architectures. 
