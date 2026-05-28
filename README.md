@@ -32,10 +32,10 @@ The project utilizes a "Super Master Dataset" containing hourly environmental re
 ## 📈 Performance Metrics
 The models were evaluated using Root Mean Square Error (RMSE) and the Coefficient of Determination ($R^2$). 
 
-| Model | MAE | RMSE | $R^2$ Score |
-| :--- | :--- | :--- | :--- |
-| **ANN** | 11,507 | 18,588 | **0.8217** |
-| **LSTM** | 10,871 | 23,551 | **0.7137** |
+| Model | MAE | RMSE | $R^2$ Score | MAPE |
+| :--- | :--- | :--- | :--- | :---
+| **ANN** | 0.070586122 | 0.11995843 | **0.8287** |0.2195
+| **LSTM** | 0.05287257 | 0.0905812 | **0.9002** |0.1476
 
 > **Research Note:** The ANN outperformed the LSTM in overall variance explanation ($R^2$), while the LSTM showed strong capability in identifying specific peak-hour trends.
 
