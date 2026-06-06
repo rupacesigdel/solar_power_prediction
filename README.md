@@ -35,8 +35,8 @@ The models were evaluated using Root Mean Square Error (RMSE) and the Coefficien
 
 | Model | MAE | RMSE | $R^2$ Score | MAPE |
 | :--- | :--- | :--- | :--- | :---
-| **ANN** | 0.070586122 | 0.11995843 | **0.8287** |0.2195
-| **LSTM** | 0.05287257 | 0.0905812 | **0.9002** |0.1476
+| **ANN** | 0.070586122 | 0.11995843 | **0.8287** |21.95
+| **LSTM** | 0.05287257 | 0.0905812 | **0.9002** |14.76
 
 > **Research Note:** The LSTM outperformed in overall variance explanation ($R^2$), while the LSTM showed strong capability in identifying specific peak-hour trends.
 
