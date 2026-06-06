@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Solar Power Prediction System</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Chart.js (global for all pages) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom CSS block -->
+    {% block extra_css %}{% endblock %}
+
+    <style>
+        body {
+            background-color: #f5f7fa;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 15px;
+            text-align: center;
+            background: #212529;
+            color: white;
+        }
+
+        .content-wrapper {
+            min-height: 80vh;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <div class="container">
+
+        <a class="navbar-brand" href="/">Solar Forecasting System</a>
+        <a href="/export/csv/" class="btn btn-success btn-sm">
+            ⬇ Export CSV
+        </a>
+        <a href="/export/pdf/" class="btn btn-danger btn-sm">
+            📄 Download PDF Report
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/predict/">Predict</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard/">Dashboard</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/upload/">Upload Data</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/comparison/">Model Comparison</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container content-wrapper mt-4">
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Solar Power Forecasting System | Built with Django + LSTM + ANN</p>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Page-specific JS -->
+{% block extra_js %}{% endblock %}
+
+</body>
+
+</html>

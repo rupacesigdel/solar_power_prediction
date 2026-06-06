@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>
+Energy Prediction
+</h2>
+
+<form method="post">
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<button
+class="btn btn-primary">
+
+Predict
+
+</button>
+
+</form>
+
+{% if prediction %}
+
+<div class="alert alert-success mt-3">
+
+Predicted Energy:
+
+<b>
+
+{{ prediction|floatformat:2 }}
+
+kWh
+
+</b>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

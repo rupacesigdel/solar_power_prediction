@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Solar Energy Forecast Dashboard</h2>
+
+<p><b>Total Records:</b> {{ total_records }}</p>
+<p><b>Average Energy:</b> {{ avg_energy }}</p>
+
+<!-- Model Switch Buttons -->
+<div class="mb-3">
+    <button class="btn btn-primary btn-sm" onclick="loadModel('ann')">ANN Model</button>
+    <button class="btn btn-danger btn-sm" onclick="loadModel('lstm')">LSTM Model</button>
+    <button class="btn btn-dark btn-sm" onclick="loadModel('both')">Compare Both</button>
+</div>
+
+<!-- Loading indicator -->
+<p id="loading">Loading chart data...</p>
+
+<canvas id="energyChart"></canvas>
+
+<script>
+
+let chart;  // global chart instance
+let currentModel = "both";
+
+document.addEventListener("DOMContentLoaded", function () {
+    fetchData();
+});
+
+function loadModel(model) {
+    currentModel = model;
+    fetchData();
+}
+
+function fetchData() {
+
+    document.getElementById("loading").style.display = "block";
+
+    fetch("/chart-data/")
+    .then(res => res.json())
+    .then(data => {
+
+        document.getElementById("loading").style.display = "none";
+
+        const ctx = document.getElementById("energyChart").getContext("2d");
+
+        let datasets = [];
+
+        const labels = data.actual.map((_, i) => i);
+
+        if (currentModel === "ann") {
+            datasets = [
+                {
+                    label: "Actual Energy",
+                    data: data.actual,
+                    borderColor: "blue",
+                    tension: 0.3,
+                    fill: false
+                },
+                {
+                    label: "ANN Prediction",
+                    data: data.ann,
+                    borderColor: "green",
+                    tension: 0.3,
+                    fill: false
+                }
+            ];
+        }
+
+        else if (currentModel === "lstm") {
+            datasets = [
+                {
+                    label: "Actual Energy",
+                    data: data.actual,
+                    borderColor: "blue",
+                    tension: 0.3,
+                    fill: false
+                },
+                {
+                    label: "LSTM Prediction",
+                    data: data.lstm,
+                    borderColor: "red",
+                    tension: 0.3,
+                    fill: false
+                }
+            ];
+        }
+
+        else {
+            datasets = [
+                {
+                    label: "Actual Energy",
+                    data: data.actual,
+                    borderColor: "blue",
+                    tension: 0.3,
+                    fill: false
+                },
+                {
+                    label: "ANN Prediction",
+                    data: data.ann,
+                    borderColor: "green",
+                    tension: 0.3,
+                    fill: false
+                },
+                {
+                    label: "LSTM Prediction",
+                    data: data.lstm,
+                    borderColor: "red",
+                    tension: 0.3,
+                    fill: false
+                }
+            ];
+        }
+
+        // destroy previous chart to avoid overlap
+        if (chart) {
+            chart.destroy();
+        }
+
+        chart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                animation: false,
+                plugins: {
+                    legend: {
+                        position: "top"
+                    },
+                    title: {
+                        display: true,
+                        text: "Solar Energy Forecast (Real-Time ML Dashboard)"
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: "Time Step"
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: "Energy (kWh)"
+                        }
+                    }
+                }
+            }
+        });
+
+    })
+    .catch(error => {
+        console.error("Chart loading error:", error);
+        document.getElementById("loading").innerText =
+            "Failed to load chart data";
+    });
+}
+
+</script>
+
+<h3 class="mt-5">🔮 24-Hour Forecast (ANN vs LSTM + Confidence Band)</h3>
+
+<canvas id="futureChart"></canvas>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    fetch("/future-forecast/")
+    .then(res => res.json())
+    .then(data => {
+
+        const labels = Array.from({length: 24}, (_, i) => `H${i+1}`);
+
+        const ctx = document.getElementById("futureChart").getContext("2d");
+
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: labels,
+
+                datasets: [
+
+                    // ================= LSTM =================
+                    {
+                        label: "LSTM Forecast",
+                        data: data.lstm,
+                        borderColor: "red",
+                        tension: 0.3,
+                        fill: false
+                    },
+                    {
+                        label: "LSTM Upper Bound",
+                        data: data.lstm_upper,
+                        borderColor: "rgba(255,0,0,0.2)",
+                        borderDash: [5,5],
+                        pointRadius: 0
+                    },
+                    {
+                        label: "LSTM Lower Bound",
+                        data: data.lstm_lower,
+                        borderColor: "rgba(255,0,0,0.2)",
+                        borderDash: [5,5],
+                        pointRadius: 0,
+                        fill: "+1"
+                    },
+
+                    // ================= ANN =================
+                    {
+                        label: "ANN Forecast",
+                        data: data.ann,
+                        borderColor: "green",
+                        tension: 0.3,
+                        fill: false
+                    },
+                    {
+                        label: "ANN Upper Bound",
+                        data: data.ann_upper,
+                        borderColor: "rgba(0,128,0,0.2)",
+                        borderDash: [5,5],
+                        pointRadius: 0
+                    },
+                    {
+                        label: "ANN Lower Bound",
+                        data: data.ann_lower,
+                        borderColor: "rgba(0,128,0,0.2)",
+                        borderDash: [5,5],
+                        pointRadius: 0,
+                        fill: "+1"
+                    }
+                ]
+            },
+
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "24H Forecast with Confidence Interval (ANN vs LSTM)"
+                    },
+                    legend: {
+                        position: "top"
+                    }
+                },
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: "Energy (kWh)"
+                        }
+                    }
+                }
+            }
+        });
+
+    });
+
+});
+</script>
+
+<h3>📊 Prediction History</h3>
+<canvas id="historyChart"></canvas>
+
+<script>
+fetch("/prediction-history/")
+.then(res => res.json())
+.then(data => {
+
+    const ctx = document.getElementById("historyChart").getContext("2d");
+
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: data.timestamps,
+            datasets: [{
+                label: "Predicted Energy",
+                data: data.values,
+                borderColor: "purple",
+                tension: 0.3,
+                fill: false
+            }]
+        }
+    });
+
+});
+</script>
+
+<h3 class="mt-5">🧠 Model Performance Comparison</h3>
+
+<canvas id="metricsChart"></canvas>
+
+<script>
+fetch("/model-metrics/")
+.then(res => res.json())
+.then(data => {
+
+    const ctx = document.getElementById("metricsChart").getContext("2d");
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["MAE", "RMSE", "R²"],
+
+            datasets: [
+                {
+                    label: "ANN",
+                    data: [
+                        data.ANN.mae,
+                        data.ANN.rmse,
+                        data.ANN.r2
+                    ],
+                    backgroundColor: "green"
+                },
+                {
+                    label: "LSTM",
+                    data: [
+                        data.LSTM.mae,
+                        data.LSTM.rmse,
+                        data.LSTM.r2
+                    ],
+                    backgroundColor: "red"
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: "ANN vs LSTM Performance Metrics"
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+});
+</script>
+
+{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}
