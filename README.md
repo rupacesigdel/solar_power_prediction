@@ -73,7 +73,7 @@ The models were evaluated using Root Mean Square Error (RMSE) and the Coefficien
 
 ---
 
-## 🔮 Future Forecasts (2026–2027)
+## 🔮 Future Forecasts (2026–2028)
 To avoid the "recursive drift" often found in long-term AI forecasts (where predictions flatten over time), this project utilizes **Historical Hourly Profiling**. By feeding the model average meteorological "fingerprints" from past years alongside future timestamps, we generate a realistic energy production wave.
 
 **Forecast Highlights:**
